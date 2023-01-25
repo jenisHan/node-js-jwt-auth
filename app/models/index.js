@@ -27,6 +27,12 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.notification = require("../models/notification.model.js")(sequelize, Sequelize);
+db.program = require("../models/program.model.js")(sequelize, Sequelize);
+db.campus = require("../models/campus.model.js")(sequelize, Sequelize);
+db.suggestion = require("../models/suggestion.model.js")(sequelize, Sequelize);
+db.article = require("../models/article.model.js")(sequelize, Sequelize);
+db.avatar = require("../models/avatar.model.js")(sequelize, Sequelize);
+db.data = require("../models/data.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
