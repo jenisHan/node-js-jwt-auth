@@ -10,6 +10,49 @@ module.exports = function (app) {
     });
 
     app.get(
+        "/api/article/findAll",
+        controller.findAll
+    );
+
+    app.get(
+        "/api/article/findArticleCategoryById/:id",
+        controller.findArticleCategoryById
+    );
+
+    app.get(
+        "/api/article/findArticleById/:id",
+        controller.findArticleById
+    );
+    ////////////////////////////////
+
+    app.get(
+        "/api/article/category/get_All",
+        controller.getAllCategories
+    );
+
+    app.get(
+        "/api/article/category/get_one/:id",
+        controller.getOneCategory
+    )
+
+    app.post(
+        "/api/article/category/create",
+        controller.createCategory
+    );
+
+    app.put(
+        "/api/article/category/update/:id",
+        controller.updateCategory
+    );
+
+    app.delete(
+        "/api/article/category/delete/:id",
+        controller.deleteCategory
+    );
+
+    ///////////////////////////////
+
+    app.get(
         "/api/article/get_All",
         controller.allArticle
     )

@@ -32,6 +32,70 @@ exports.findProgramById = (req, res) => {
 };
 
 
+
+//Get All Categories
+exports.getAllCategories = (req, res) => {
+  ProgramCategory.findAll({
+  }).then(result => {
+    res.status(200).send(result);
+  });
+};
+
+//Get Category Onebyone
+exports.getOneCategory = (req, res) => {
+  ProgramCategory.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+//Create New Category
+exports.createCategory = (req, res) => {
+  //save new category to database
+  ProgramCategory.create({
+    title: req.body.title,
+    description: req.body.description,
+  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+//Update Category
+exports.updateCategory = (req, res) => {
+  ProgramCategory.update(
+    {
+      title: req.body.title,
+      description: req.body.description,
+    }, {
+    where: {
+      id: req.params.id
+    },
+  }).then(result => {
+    res.status(200).send(result);
+  });
+};
+
+//Delete Category
+exports.deleteCategory = async (req, res) => {
+  try {
+    const postDelete = await ProgramCategory.destroy({ where: { id: req.params.id } });
+    res.json(postDelete)
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
+
+
 //Get All Programs
 exports.allPrograms = (req, res) => {
   Program.findAll({
@@ -81,7 +145,7 @@ exports.updateProgram = (req, res) => {
       name: req.body.name,
       description: req.body.description,
       requirement: req.body.requirement,
-      category: req.body.category,
+      programCategoryId: req.body.programCategoryId,
       date: req.body.date,
       purchases: req.body.purchases,
       recommends: req.body.recommends,

@@ -14,10 +14,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         source: {
             type: Sequelize.STRING
-        },
-        category: {
-            type: Sequelize.STRING
         }
+        // category: {
+        //     type: Sequelize.STRING
+        // }
        
     });
 

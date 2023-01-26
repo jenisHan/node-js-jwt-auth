@@ -42,6 +42,7 @@ require("./app/routes/suggestion.routes")(app);
 require("./app/routes/article.routes")(app);
 require("./app/routes/avatar.routes")(app);
 require("./app/routes/data.routes")(app);
+require("./app/routes/comment.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

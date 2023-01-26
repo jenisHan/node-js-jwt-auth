@@ -35,6 +35,8 @@ db.avatar = require("../models/avatar.model.js")(sequelize, Sequelize);
 db.data = require("../models/data.model")(sequelize, Sequelize);
 
 db.programCategory = require("../models/programCategory.model")(sequelize, Sequelize);
+db.articleCategory = require("../models/articleCategory.model")(sequelize, Sequelize);
+db.comment = require("../models/comment.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -53,6 +55,18 @@ db.programCategory.hasMany(db.program, { as: "programs" });
 db.program.belongsTo(db.programCategory, {
   foreignKey: "programCategoryId",
   as: "programCategory",
+});
+
+db.articleCategory.hasMany(db.article, { as: "articles" });
+db.article.belongsTo(db.articleCategory, {
+  foreignKey: "articleCategoryId",
+  as: "articleCategory",
+});
+
+db.user.hasMany(db.comment, { as: "comments" });
+db.comment.belongsTo(db.user, {
+  foreignKey: "userId",
+  as: "user",
 });
 
 module.exports = db;
