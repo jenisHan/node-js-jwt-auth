@@ -34,6 +34,8 @@ db.article = require("../models/article.model.js")(sequelize, Sequelize);
 db.avatar = require("../models/avatar.model.js")(sequelize, Sequelize);
 db.data = require("../models/data.model")(sequelize, Sequelize);
 
+db.programCategory = require("../models/programCategory.model")(sequelize, Sequelize);
+
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -46,5 +48,11 @@ db.user.belongsToMany(db.role, {
 });
 
 db.ROLES = ["user", "admin", "moderator"];
+
+db.programCategory.hasMany(db.program, { as: "programs" });
+db.program.belongsTo(db.programCategory, {
+  foreignKey: "programCategoryId",
+  as: "programCategory",
+});
 
 module.exports = db;

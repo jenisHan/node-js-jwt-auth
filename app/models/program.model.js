@@ -9,9 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         requirement: {
             type: Sequelize.STRING
         },
-        category: {
-            type: Sequelize.STRING
-        },
+        // category: {
+        //     type: Sequelize.STRING
+        // },
         date: {
             type: Sequelize.DATEONLY
         },
