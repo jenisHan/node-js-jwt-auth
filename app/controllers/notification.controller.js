@@ -29,6 +29,7 @@ exports.createNotification = (req, res) => {
   Notification.create({
     date: req.body.date,
     description: req.body.description,
+    type: req.body.type
   })
     .then(notification => {
       res.status(200).send(notification);
@@ -40,14 +41,18 @@ exports.createNotification = (req, res) => {
 
 // Update Notification
 exports.updateNotification = (req, res) => {
-  Notification.update(
-    { date: req.body.date, description: req.body.description }, {
-    where: {
-      id: req.params.id
-    },
-  }).then(result => {
-    res.status(200).send(result);
-  });
+  Notification.update({
+    date: req.body.date,
+    description: req.body.description,
+    type: req.body.type
+  },
+    {
+      where: {
+        id: req.params.id
+      },
+    }).then(result => {
+      res.status(200).send(result);
+    });
 };
 
 // Delete Notification

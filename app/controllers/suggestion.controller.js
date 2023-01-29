@@ -1,8 +1,38 @@
 const db = require("../models");
 Suggestion = db.suggestion;
+User = db.user;
+
+// Get all users include suggestions
+exports.findAll = (req, res) => {
+    return User.findAll({
+        include: ["suggestions"],
+    }).then((users) => {
+        res.json(users)
+    });
+};
+
+// Get the suggestions for a given user id
+exports.findSuggestionById = (req, res) => {
+    return User.findByPk(req.params.id, { include: ["suggestions"] })
+        .then((user) => {
+            res.status(200).send(user);
+        });
+};
+
+// Get the user for a given suggestion id
+exports.findUserById = (req, res) => {
+    return Suggestion.findByPk(req.params.id, { include: ["user"] })
+        .then((suggestion) => {
+            res.json(suggestion)
+        })
+        .catch((err) => {
+            console.log(">> Error while finding suggestion: ", err);
+        });
+};
+
 
 //Get All Suggestions
-exports.allSuggestions = (req, res) => {
+exports.getAllSuggestions = (req, res) => {
     Suggestion.findAll({
     }).then(result => {
         res.status(200).send(result)
@@ -12,23 +42,25 @@ exports.allSuggestions = (req, res) => {
 //Get Suggestion
 exports.getSuggestion = (req, res) => {
     Suggestion.findOne({
-      where: {
-        id: req.params.id
-      }
+        where: {
+            id: req.params.id
+        }
     })
-    .then(result => {
-      res.status(200).send(result)
-    })
-  }
+        .then(result => {
+            res.status(200).send(result)
+        })
+}
 
 // Create New Suggestion
-exports.createSuggestion = (req, res) => {
+exports.createSuggestion = async (req, res) => {
+
     // Save Suggestion to Database
     Suggestion.create({
         name: req.body.name,
         description: req.body.description,
         contact_number: req.body.contact_number,
-        attach_url: req.body.attach_url
+        attach_url: req.body.attach_url,
+        draft: req.body.draft
     })
         .then(suggestion => {
             res.status(200).send(suggestion);
@@ -45,7 +77,8 @@ exports.updateSuggestion = (req, res) => {
             name: req.body.name,
             description: req.body.description,
             contact_number: req.body.contact_number,
-            attach_url: req.body.attach_url
+            attach_url: req.body.attach_url,
+            draft: req.body.draft
         }, {
         where: {
             id: req.params.id

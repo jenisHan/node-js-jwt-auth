@@ -9,6 +9,13 @@ module.exports = function (app) {
         next();
     });
 
+    // add recommend
+    app.put(
+        "/api/article/addRecommend/:id",
+        controller.addRecommend
+    );
+
+    // frontend functions
     app.get(
         "/api/article/findAll",
         controller.findAll
@@ -23,8 +30,8 @@ module.exports = function (app) {
         "/api/article/findArticleById/:id",
         controller.findArticleById
     );
-    ////////////////////////////////
 
+    // backend functions
     app.get(
         "/api/article/category/get_All",
         controller.getAllCategories
@@ -50,7 +57,6 @@ module.exports = function (app) {
         controller.deleteCategory
     );
 
-    ///////////////////////////////
 
     app.get(
         "/api/article/get_All",
@@ -76,5 +82,4 @@ module.exports = function (app) {
         "/api/article/delete/:id",
         controller.deleteArticle
     );
-
 };

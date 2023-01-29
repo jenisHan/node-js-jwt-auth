@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         attach_url: {
             type: Sequelize.STRING
+        },
+        draft:{
+            type: Sequelize.STRING
         }
 
     });

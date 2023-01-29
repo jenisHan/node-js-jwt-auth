@@ -8,7 +8,51 @@ module.exports = function (app) {
         );
         next();
     });
+    
+    // frontend routes
+    app.get(
+        "/api/data/findAll",
+        controller.findAll
+    );
 
+    app.get(
+        "/api/data/findDataCategoryById/:id",
+        controller.findDataCategoryById
+    );
+
+    app.get(
+        "/api/data/findDataById/:id",
+        controller.findDataById
+    );
+
+    // backend routes
+    app.get(
+        "/api/data/category/get_All",
+        controller.getAllCategories
+    );
+
+    app.get(
+        "/api/data/category/get_one/:id",
+        controller.getOneCategory
+    )
+
+    app.post(
+        "/api/data/category/create",
+        controller.createCategory
+    );
+
+
+    app.put(
+        "/api/data/category/update/:id",
+        controller.updateCategory
+    );
+
+    app.delete(
+        "/api/data/category/delete/:id",
+        controller.deleteCategory
+    );
+
+    //////////
     app.get(
         "/api/data/get_All",
         controller.allData

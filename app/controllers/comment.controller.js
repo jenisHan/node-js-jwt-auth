@@ -2,15 +2,15 @@ const db = require("../models")
 Comments = db.comment
 User = db.user
 
-// Get all comments include users
+// Get all user include comments
 exports.findAll = (req, res) => {
   return User.findAll({ include: ["comments"] })
-    .then((comment) => {
-      res.json(comment)
+    .then((users) => {
+      res.json(users)
     });
 };
 
-// Get the comments for a given user id
+// Get the comments for a given user
 exports.findCommentById = (req, res) => {
   return User.findByPk(req.params.id, { include: ["comments"] })
     .then((comment) => {
@@ -21,16 +21,18 @@ exports.findCommentById = (req, res) => {
 
 // Get the user for a given comment id
 exports.findUserById = (req, res) => {
-  return Comments.findByPk(req.params.id, { include: ["user"] })
-    .then((user) => {
-      res.json(user)
+  return Comments.findByPk(req.params.id, { include: ["user", "article"] })
+    .then((comment) => {
+      res.json(comment)
     })
     .catch((err) => {
-      console.log(">> Error while finding user: ", err);
+      console.log(">> Error while finding comment: ", err);
     });
 };
 
+
 //Get All Comments
+
 exports.getAllComments = (req, res) => {
   Comments.findAll({
   }).then(result => {

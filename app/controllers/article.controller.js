@@ -2,6 +2,27 @@ const db = require("../models");
 Article = db.article
 ArticleCategory = db.articleCategory
 
+// Add Recommend
+exports.addRecommend = (req, res) => {
+  Article.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then((selectedArticle) => {
+    Article.update(
+      {
+        recommends: (selectedArticle.recommends + 1),
+      }, {
+      where: {
+        id: req.params.id
+      },
+    }).then(result => {
+      res.status(200).send(result);
+    });
+  });
+}
+
+
 // Get all Categories include article
 exports.findAll = (req, res) => {
   return ArticleCategory.findAll({
@@ -11,18 +32,18 @@ exports.findAll = (req, res) => {
   });
 };
 
-// Get the articles for a given category id
+// Get the articles for a given category
 exports.findArticleCategoryById = (req, res) => {
   return ArticleCategory.findByPk(req.params.id, { include: ["articles"] })
-    .then((article) => {
+    .then((articlecategories) => {
       // res.json(category)
-      res.status(200).send(article);
+      res.status(200).send(articlecategories);
     });
 };
 
 // Get the article for a given article id
 exports.findArticleById = (req, res) => {
-  return Article.findByPk(req.params.id, { include: ["articleCategory"] })
+  return Article.findByPk(req.params.id, { include: ["articleCategory", "user"] })
     .then((article) => {
       res.json(article)
     })
@@ -120,7 +141,7 @@ exports.createArticle = (req, res) => {
     description: req.body.description,
     contact_number: req.body.contact_number,
     attach_url: req.body.attach_url,
-    source: req.body.source,
+    source: req.body.source
     // category: req.body.category
   })
     .then(result => {

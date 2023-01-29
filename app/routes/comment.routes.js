@@ -9,6 +9,7 @@ module.exports = function (app) {
         next();
     });
 
+    // frontend routes
     app.get(
         "/api/comment/findAll",
         controller.findAll
@@ -24,8 +25,7 @@ module.exports = function (app) {
         controller.findUserById
     );
 
-    //////
-
+    // backend routes
     app.get(
         "/api/comment/get_All",
         controller.getAllComments
@@ -50,5 +50,4 @@ module.exports = function (app) {
         "/api/comment/delete/:id",
         controller.deleteComment
     );
-
 }

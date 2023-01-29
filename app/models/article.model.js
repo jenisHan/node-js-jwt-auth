@@ -14,10 +14,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         source: {
             type: Sequelize.STRING
+        },
+        recommends: {
+            type: Sequelize.INTEGER
         }
-        // category: {
-        //     type: Sequelize.STRING
-        // }
        
     });
 

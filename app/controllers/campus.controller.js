@@ -1,5 +1,97 @@
 const db = require("../models");
 Campus = db.campus
+CampusCategory = db.campusCategory
+
+
+// Get all Categories include campuses
+exports.findAll = (req, res) => {
+  return CampusCategory.findAll({
+    include: ["campuses"],
+  }).then((campusCategories) => {
+    res.json(campusCategories)
+  });
+};
+
+// Get the campus for a given category id
+exports.findCampusCategoryById = (req, res) => {
+  return CampusCategory.findByPk(req.params.id, { include: ["campuses"] })
+    .then((category) => {
+      // res.json(category)
+      res.status(200).send(category);
+    });
+};
+
+// Get the campus for a given campus id
+exports.findCampusById = (req, res) => {
+  return Campus.findByPk(req.params.id, { include: ["campusCategory"] })
+    .then((campus) => {
+      res.json(campus)
+    })
+    .catch((err) => {
+      console.log(">> Error while finding campus: ", err);
+    });
+};
+
+//Get All Categories
+exports.getAllCategories = (req, res) => {
+  CampusCategory.findAll({
+  }).then(result => {
+    res.status(200).send(result);
+  });
+};
+
+//Get Category Onebyone
+exports.getOneCategory = (req, res) => {
+  CampusCategory.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
+//Create New Category
+exports.createCategory = (req, res) => {
+  //save new category to database
+  CampusCategory.create({
+    title: req.body.title,
+    description: req.body.description,
+  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+//Update Category
+exports.updateCategory = (req, res) => {
+  CampusCategory.update(
+    {
+      title: req.body.title,
+      description: req.body.description,
+    }, {
+    where: {
+      id: req.params.id
+    },
+  }).then(result => {
+    res.status(200).send(result);
+  });
+};
+
+//Delete Category
+exports.deleteCategory = async (req, res) => {
+  try {
+    const postDelete = await CampusCategory.destroy({ where: { id: req.params.id } });
+    res.json(postDelete)
+  } catch (error) {
+    console.log(error)
+  }
+};
+
 
 //Get All Campuses
 exports.allCampus = (req, res) => {
@@ -19,9 +111,9 @@ exports.oneCampus = (req, res) => {
       id: req.params.id
     }
   })
-  .then(result => {
-    res.status(200).send(result)
-  })
+    .then(result => {
+      res.status(200).send(result)
+    })
 }
 
 //Create New Campus

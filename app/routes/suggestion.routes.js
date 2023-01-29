@@ -9,9 +9,26 @@ module.exports = function (app) {
         next();
     });
 
+    // frontend routes
     app.get(
-        "/api/suggestions/get_All",
-        controller.allSuggestions
+        "/api/suggestions/find_all",
+        controller.findAll
+    );
+
+    app.get(
+        "/api/suggestions/findSuggestionById/:id",
+        controller.findSuggestionById
+    );
+
+    app.get(
+        "/api/suggestions/findUserById/:id",
+        controller.findUserById
+    );
+
+    // backend routes
+    app.get(
+        "/api/suggestions/get_all",
+        controller.getAllSuggestions
     );
 
     app.get(

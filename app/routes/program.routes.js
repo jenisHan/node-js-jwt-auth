@@ -9,6 +9,7 @@ module.exports = function (app) {
         next();
     });
 
+    // frontend routes
     app.get(
         "/api/program/findAll",
         controller.findAll
@@ -24,7 +25,7 @@ module.exports = function (app) {
         controller.findProgramById
     );
 
-    /////////////////
+    // backend routes    
     app.get(
         "/api/program/category/get_All",
         controller.getAllCategories
@@ -49,9 +50,6 @@ module.exports = function (app) {
         "/api/program/category/delete/:id",
         controller.deleteCategory
     );
-
-
-////////////////////////
 
 
     app.get(

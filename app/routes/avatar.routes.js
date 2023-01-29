@@ -32,6 +32,5 @@ module.exports = function (app) {
     app.delete(
         "/api/avatar/delete/:id",
         controller.deleteAvatar
-      );
-
+    );
 };
