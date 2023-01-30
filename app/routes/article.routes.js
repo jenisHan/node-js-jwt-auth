@@ -15,6 +15,24 @@ module.exports = function (app) {
         controller.addRecommend
     );
 
+    // add recommend
+    app.put(
+        "/api/article/addOpposition/:id",
+        controller.addOpposition
+    );
+
+    // add browingcount
+    app.put(
+        "/api/article/addBrowingCount/:id",
+        controller.addBrowingCount
+    );
+
+    // find best adding user
+    app.get(
+        "/api/article/findTopUser",
+        controller.findTopUser
+    );
+
     // frontend functions
     app.get(
         "/api/article/findAll",

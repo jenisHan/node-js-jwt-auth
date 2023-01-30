@@ -17,6 +17,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         recommends: {
             type: Sequelize.INTEGER
+        },
+        oppositions:{
+            type: Sequelize.INTEGER
+        },
+        browingcount:{
+            type: Sequelize.INTEGER
         }
        
     });

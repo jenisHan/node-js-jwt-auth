@@ -29,4 +29,16 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  // Get all users
+  app.get(
+    "/api/user/getAllUsers",
+    controller.getAllUsers
+  );
+  
+  // Delete user
+  app.delete(
+    "/api/user/delete/:id",
+    controller.deleteUser
+  );
 };

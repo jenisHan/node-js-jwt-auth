@@ -22,6 +22,62 @@ exports.addRecommend = (req, res) => {
   });
 }
 
+// Add Opposition
+exports.addOpposition = (req, res) => {
+  Article.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then((selectedArticle) => {
+    Article.update(
+      {
+        oppositions: (selectedArticle.oppositions + 1),
+      }, {
+      where: {
+        id: req.params.id
+      },
+    }).then(result => {
+      res.status(200).send(result);
+    });
+  });
+}
+
+// Add browingCount
+exports.addBrowingCount = (req, res) => {
+  Article.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then((selectedArticle) => {
+    Article.update(
+      {
+        browingcount: (selectedArticle.browingcount + 1),
+      }, {
+      where: {
+        id: req.params.id
+      },
+    }).then(result => {
+      res.status(200).send(result);
+    });
+  });
+}
+
+// Find best adding user
+exports.findTopUser = (req, res) => {
+  //   return ArticleCategory.findAll({
+  //     include: ["articles"],
+  //   }).then((result) => {
+  //     // console.log("------------------------>",result)
+  //     res.json(result)
+  //   });
+  Article.sequelize.query(`SELECT * 
+                           FROM articles
+                           LEFT JOIN users ON users.id = articles.userId
+                          WHERE browingcount IN (SELECT MAX(browingcount) FROM articles)
+                          `).then((result) => { res.json(result) })
+
+}
+
 
 // Get all Categories include article
 exports.findAll = (req, res) => {
