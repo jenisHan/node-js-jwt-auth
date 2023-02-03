@@ -20,6 +20,11 @@ module.exports = function (app) {
     controller.todayNotification
   );
 
+  app.get(
+    "/api/notifications/get/:id",
+    controller.getNotification
+  );
+
   app.post(
     "/api/notifications/create",
     controller.createNotification

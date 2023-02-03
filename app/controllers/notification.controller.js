@@ -23,6 +23,18 @@ exports.todayNotification = (req, res) => {
   });
 };
 
+//Get One Notification
+exports.getNotification = (req, res) => {
+  Notification.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 // Create New Notification
 exports.createNotification = (req, res) => {
   // Save Notification to Database
