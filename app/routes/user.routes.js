@@ -1,4 +1,5 @@
 const { authJwt } = require("../middleware");
+const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
 module.exports = function (app) {
@@ -35,7 +36,31 @@ module.exports = function (app) {
     "/api/user/getAllUsers",
     controller.getAllUsers
   );
+
+
+  // Create New User
+  app.post(
+    "/api/user/create",
+    [
+      verifySignUp.checkDuplicateUsernameOrEmail,
+      verifySignUp.checkRolesExisted
+    ],
+    controller.createUser
+  );
+
   
+  // Get User by Id
+  app.get(
+    "/api/user/get/:id",
+    controller.getOneUser
+  );
+
+  // Update User by ID
+  app.put(
+    "/api/user/update/:id",
+    controller.updateUser
+  );
+
   // Delete user
   app.delete(
     "/api/user/delete/:id",
