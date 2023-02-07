@@ -59,6 +59,7 @@ exports.createCategory = (req, res) => {
   ProgramCategory.create({
     title: req.body.title,
     description: req.body.description,
+    parentId: req.body.parentId
   })
     .then(result => {
       res.status(200).send(result);
@@ -74,6 +75,7 @@ exports.updateCategory = (req, res) => {
     {
       title: req.body.title,
       description: req.body.description,
+      parentId: req.body.parentId
     }, {
     where: {
       id: req.params.id

@@ -125,7 +125,8 @@ exports.createCampus = (req, res) => {
     description: req.body.description,
     cost: req.body.cost,
     browses: req.body.browses,
-    recommends: req.body.recommends
+    recommends: req.body.recommends,
+    campusCategoryId: req.body.campusCategoryId
   })
     .then(result => {
       res.status(200).send(result);
@@ -143,7 +144,8 @@ exports.updateCampus = (req, res) => {
       description: req.body.description,
       cost: req.body.cost,
       browses: req.body.browses,
-      recommends: req.body.recommends
+      recommends: req.body.recommends,
+      campusCategoryId: req.body.campusCategoryId
     }, {
     where: {
       id: req.params.id
