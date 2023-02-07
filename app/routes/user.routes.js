@@ -31,6 +31,18 @@ module.exports = function (app) {
     controller.adminBoard
   );
 
+  // Deposit Balance
+  app.post(
+    "/api/user/deposit/:id",
+    controller.depositUser
+  );
+
+  // Spend Balance
+  app.post(
+    "/api/user/spend/:id",
+    controller.spendUser
+  );
+
   // Get all users
   app.get(
     "/api/user/getAllUsers",

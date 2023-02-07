@@ -189,6 +189,11 @@ exports.oneArticle = (req, res) => {
     })
 }
 
+// Verify New Article
+exports.verifyArticle = (req, res) => {
+  res.json(1)
+};
+
 // Create New Article
 exports.createArticle = (req, res) => {
   // Save Article to Database
