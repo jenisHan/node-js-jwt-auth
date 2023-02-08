@@ -25,9 +25,23 @@ exports.oneAvatar = (req, res) => {
 
 // Create New Avatar
 exports.createAvatar = async (req, res) => {
+  req.tailPath = "avatar/"
+  req.dateNow = Date.now()
 
   try {
     await uploadFile(req, res);
+    // Save Avatar to Database
+    Avatar.create({
+      name: req.body.name,
+      file_url: "/resources/static/assets/uploads/" + req.tailPath + req.dateNow + req.file.originalname,
+      cost: req.body.cost
+    })
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+      });
   } catch (err) {
     console.log(err);
 
@@ -41,19 +55,6 @@ exports.createAvatar = async (req, res) => {
       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
     });
   }
-
-  // Save Avatar to Database
-  Avatar.create({
-    name: req.body.name,
-    file_url: req.body.file_url,
-    cost: req.body.cost
-  })
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
 };
 
 // Update Avatar
