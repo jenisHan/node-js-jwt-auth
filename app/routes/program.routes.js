@@ -31,6 +31,11 @@ module.exports = function (app) {
         controller.findProgramById
     );
 
+    app.get(
+        "/api/program/getTopPrograms",
+        controller.getTopPrograms
+    );
+
     // backend routes    
     app.get(
         "/api/program/category/get_All",

@@ -40,7 +40,16 @@ exports.findProgramById = (req, res) => {
     });
 };
 
-
+// Get top programs
+exports.getTopPrograms = (req, res) => {
+  return Program.findAll({
+    limit: 3,
+    order: [['recommends', 'DESC']]
+    // include: ["programCategory"],
+  }).then((program) => {
+    res.json(program)
+  });
+};
 
 //Get All Categories
 exports.getAllCategories = (req, res) => {

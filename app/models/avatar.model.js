@@ -5,7 +5,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         cost: {
             type: Sequelize.INTEGER
-        }   
+        },
+        file_url: {
+            type: Sequelize.STRING
+        },
     });
 
     return Avatar;
