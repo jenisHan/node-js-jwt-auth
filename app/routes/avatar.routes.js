@@ -24,6 +24,16 @@ module.exports = function (app) {
         controller.createAvatar
     );
 
+    app.get(
+        "/api/avatar/file/:path",
+        controller.download
+    );
+
+    app.get(
+        "/api/avatar/fileById/:id",
+        controller.downloadById
+    );
+
     app.put(
         "/api/avatar/update/:id",
         controller.updateAvatar
