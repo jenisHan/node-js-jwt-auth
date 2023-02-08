@@ -2,12 +2,12 @@ const db = require("../models");
 Question = db.question
 Answer = db.answer
 const Sequelize = require("sequelize");
-
+CampusCategory = db.campusCategory
 
 // Get all questions include answers
 exports.findAll = (req, res) => {
     return Question.findAll({
-        include: ["answers"],
+        include: ["answers", "campusCategory"],
     }).then((result) => {
         res.json(result)
     });
@@ -72,6 +72,7 @@ exports.createQuestion = (req, res) => {
     // Save Question to Database
     Question.create({
         description: req.body.description,
+        campusCategory: req.body.campusCategory
     })
         .then(result => {
             res.status(200).send(result);
