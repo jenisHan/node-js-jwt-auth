@@ -3,11 +3,20 @@ Program = db.program
 ProgramCategory = db.programCategory
 
 // Get all Categories include programs
-exports.findAll = (req, res) => {
+exports.findAllBy = (req, res) => {
   return ProgramCategory.findAll({
     include: ["programs"],
   }).then((programCategories) => {
     res.json(programCategories)
+  });
+};
+
+// Get all programs
+exports.findAll = (req, res) => {
+  return Program.findAll({
+    include: ["programCategory"],
+  }).then((program) => {
+    res.json(program)
   });
 };
 
@@ -59,6 +68,7 @@ exports.createCategory = (req, res) => {
   ProgramCategory.create({
     title: req.body.title,
     description: req.body.description,
+    parentId: req.body.parentId
   })
     .then(result => {
       res.status(200).send(result);
@@ -74,6 +84,7 @@ exports.updateCategory = (req, res) => {
     {
       title: req.body.title,
       description: req.body.description,
+      parentId: req.body.parentId
     }, {
     where: {
       id: req.params.id

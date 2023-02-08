@@ -18,6 +18,46 @@ exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
 
+// Deposit Balance
+exports.depositUser = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then((selectedUser) => {
+    User.update(
+      {
+        balance: (selectedUser.balance + req.body.amount),
+      }, {
+      where: {
+        id: req.params.id
+      },
+    }).then(result => {
+      res.status(200).send(result);
+    });
+  });
+}
+
+// Spend Balance
+exports.spendUser = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then((selectedUser) => {
+    User.update(
+      {
+        balance: (selectedUser.balance - req.body.cost),
+      }, {
+      where: {
+        id: req.params.id
+      },
+    }).then(result => {
+      res.status(200).send(result);
+    });
+  });
+}
+
 // Get All Users
 exports.getAllUsers = (req, res) => {
   User.findAll({
@@ -58,7 +98,7 @@ exports.createUser = async (req, res) => {
     email: req.body.email,
     gender: req.body.gender,
     birthday: req.body.birthday,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: req.body.password,
 
   })
     .then(user => {

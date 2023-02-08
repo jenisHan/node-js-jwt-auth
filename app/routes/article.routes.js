@@ -87,6 +87,11 @@ module.exports = function (app) {
     )
 
     app.post(
+        "/api/article/verify",
+        controller.verifyArticle
+    );
+
+    app.post(
         "/api/article/create",
         controller.createArticle
     );

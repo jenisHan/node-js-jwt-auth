@@ -1,13 +1,13 @@
 const db = require("../models");
 Data = db.data
 DataCategory = db.dataCategory
-
+  
 // Get all Categories include datas
 exports.findAll = (req, res) => {
-  return DataCategory.findAll({
-    include: ["datas"],
-  }).then((dataCategories) => {
-    res.json(dataCategories)
+  return Data.findAll({
+    include: ["dataCategory"],
+  }).then((data) => {
+    res.json(data)
   });
 };
 

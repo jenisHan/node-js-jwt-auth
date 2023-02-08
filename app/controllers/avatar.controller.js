@@ -1,4 +1,6 @@
 const db = require("../models");
+const uploadFile = require("../middleware/upload");
+
 Avatar = db.avatar
 
 // Get All Avatars
@@ -22,7 +24,24 @@ exports.oneAvatar = (req, res) => {
 }
 
 // Create New Avatar
-exports.createAvatar = (req, res) => {
+exports.createAvatar = async (req, res) => {
+
+  try {
+    await uploadFile(req, res);
+  } catch (err) {
+    console.log(err);
+
+    if (err.code == "LIMIT_FILE_SIZE") {
+      return res.status(500).send({
+        message: "File size cannot be larger than 2MB!",
+      });
+    }
+
+    res.status(500).send({
+      message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+    });
+  }
+
   // Save Avatar to Database
   Avatar.create({
     name: req.body.name,

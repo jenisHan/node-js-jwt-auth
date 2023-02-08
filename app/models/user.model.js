@@ -15,6 +15,12 @@ module.exports = (sequelize, Sequelize) => {
     birthday: {
       type: Sequelize.DATEONLY
     },
+    balance: {
+      type: Sequelize.INTEGER
+    },
+    free_balance: {
+      type: Sequelize.INTEGER
+    },
     password: {
       type: Sequelize.STRING
     }

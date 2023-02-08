@@ -22,7 +22,14 @@ exports.findUserById = (req, res) => {
 
 // Get the dataPurchaseHistories for a given dataPurchaseHistory id
 exports.findDataPurchaseHistoyById = (req, res) => {
-    return DataPurchaseHistory.findByPk(req.params.id, { include: ["user", "data"], })
+    // return DataPurchaseHistory.findByPk(req.params.id, { include: ["user", "data"], })
+    //     .then((history) => {
+    //         res.json(history)
+    //     })
+    //     .catch((err) => {
+    //         console.log(">> Error while finding program: ", err);
+    //     });
+        return user.findByPk(req.params.id, { include: ["user", "data", "dataPurchaseHistory"], })
         .then((history) => {
             res.json(history)
         })
