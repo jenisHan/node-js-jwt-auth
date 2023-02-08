@@ -1,12 +1,25 @@
 const db = require("../models");
 Question = db.question
 Answer = db.answer
+const Sequelize = require("sequelize");
 
 
 // Get all questions include answers
 exports.findAll = (req, res) => {
     return Question.findAll({
         include: ["answers"],
+    }).then((result) => {
+        res.json(result)
+    });
+};
+
+// Get number of questions include answers
+exports.findSomeQuestions = (req, res) => {
+    return Question.findAll({
+        order: [
+            [Sequelize.literal('RAND()')]
+        ], limit: 2,
+        // include: ["answers"],
     }).then((result) => {
         res.json(result)
     });
