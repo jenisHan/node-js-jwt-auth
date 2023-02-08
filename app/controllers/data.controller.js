@@ -126,13 +126,26 @@ exports.createData = (req, res) => {
         data_type: req.body.data_type,
         amount: req.body.amount,
         unit: req.body.unit,
-        specification: req.body.specification,
-        purpose: req.body.purpose,
-        prediction_date: req.body.prediction_date,
-        datacol: req.body.datacol,
+        type: req.body.type,
+        port: req.body.port,
+        date: req.body.date,
+        price: req.body.price,
         from: req.body.from,
         to: req.body.to,
-        browses: req.body.browses
+        owner: req.body.owner,
+        runner: req.body.runner,
+        total_weight: req.body.total_weight,
+        load_weight: req.body.load_weight,
+        weight: req.body.weight,
+        current_height: req.body.current_height,
+        width: req.body.width,
+        length: req.body.length,
+        full_load: req.body.full_load,
+        engine: req.body.engine,
+        created: req.body.created,
+        factory: req.body.factory,
+        location: req.body.location,
+        status: req.body.status
     })
         .then(result => {
             res.status(200).send(result);
@@ -146,18 +159,44 @@ exports.createData = (req, res) => {
 exports.updateData = (req, res) => {
     Data.update(
         {
-            name: req.body.name,
-            file_url: req.body.file_url,
-            data_type: req.body.data_type,
-            amount: req.body.amount,
-            unit: req.body.unit,
-            specification: req.body.specification,
-            purpose: req.body.purpose,
-            prediction_date: req.body.prediction_date,
-            datacol: req.body.datacol,
-            from: req.body.from,
-            to: req.body.to,
-            browses: req.body.browses
+          name: req.body.name,
+          file_url: req.body.file_url,
+          data_type: req.body.data_type,
+          amount: req.body.amount,
+          unit: req.body.unit,
+          type: req.body.type,
+          port: req.body.port,
+          date: req.body.date,
+          price: req.body.price,
+          from: req.body.from,
+          to: req.body.to,
+          owner: req.body.owner,
+          runner: req.body.runner,
+          total_weight: req.body.total_weight,
+          load_weight: req.body.load_weight,
+          weight: req.body.weight,
+          current_height: req.body.current_height,
+          width: req.body.width,
+          length: req.body.length,
+          full_load: req.body.full_load,
+          engine: req.body.engine,
+          created: req.body.created,
+          factory: req.body.factory,
+          location: req.body.location,
+          status: req.body.status
+
+            // name: req.body.name,
+            // file_url: req.body.file_url,
+            // data_type: req.body.data_type,
+            // amount: req.body.amount,
+            // unit: req.body.unit,
+            // specification: req.body.specification,
+            // purpose: req.body.purpose,
+            // prediction_date: req.body.prediction_date,
+            // datacol: req.body.datacol,
+            // from: req.body.from,
+            // to: req.body.to,
+            // browses: req.body.browses
         }, {
         where: {
             id: req.params.id
