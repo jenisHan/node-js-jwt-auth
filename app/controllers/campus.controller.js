@@ -3,12 +3,21 @@ Campus = db.campus
 CampusCategory = db.campusCategory
 
 
+// // Get all Categories include campuses
+// exports.findAll = (req, res) => {
+//   return CampusCategory.findAll({
+//     include: ["campuses"],
+//   }).then((campusCategories) => {
+//     res.json(campusCategories)
+//   });
+// };
+
 // Get all Categories include campuses
 exports.findAll = (req, res) => {
-  return CampusCategory.findAll({
-    include: ["campuses"],
-  }).then((campusCategories) => {
-    res.json(campusCategories)
+  return Campus.findAll({
+    include: ["campusCategory"],
+  }).then((campus) => {
+    res.json(campus)
   });
 };
 
