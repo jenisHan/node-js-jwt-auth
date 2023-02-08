@@ -11,6 +11,11 @@ module.exports = function (app) {
 
   // frontend routes
   app.get(
+    "/api/campus/findAllBy",
+    controller.findAllBy
+  );
+
+  app.get(
     "/api/campus/findAll",
     controller.findAll
   );

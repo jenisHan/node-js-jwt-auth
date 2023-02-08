@@ -3,11 +3,20 @@ Program = db.program
 ProgramCategory = db.programCategory
 
 // Get all Categories include programs
-exports.findAll = (req, res) => {
+exports.findAllBy = (req, res) => {
   return ProgramCategory.findAll({
     include: ["programs"],
   }).then((programCategories) => {
     res.json(programCategories)
+  });
+};
+
+// Get all programs
+exports.findAll = (req, res) => {
+  return Program.findAll({
+    include: ["programCategory"],
+  }).then((program) => {
+    res.json(program)
   });
 };
 

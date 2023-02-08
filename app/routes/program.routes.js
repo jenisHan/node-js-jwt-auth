@@ -10,6 +10,12 @@ module.exports = function (app) {
     });
 
     // frontend routes
+
+    app.get(
+        "/api/program/findAllBy",
+        controller.findAllBy
+    );
+
     app.get(
         "/api/program/findAll",
         controller.findAll
