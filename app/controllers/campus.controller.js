@@ -103,7 +103,7 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-
+// ----------***---------
 //Get All Campuses
 exports.allCampus = (req, res) => {
   Campus.findAll({
@@ -114,6 +114,7 @@ exports.allCampus = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+// ----------***---------
 
 //Get Campus OneByone
 exports.oneCampus = (req, res) => {

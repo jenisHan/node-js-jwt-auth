@@ -3,9 +3,6 @@ module.exports = (sequelize, Sequelize) => {
         name: {
             type: Sequelize.STRING
         },
-        file_url: {
-            type: Sequelize.STRING
-        },
         cost: {
             type: Sequelize.INTEGER
         }   
