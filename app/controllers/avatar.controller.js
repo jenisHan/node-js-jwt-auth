@@ -25,9 +25,24 @@ exports.oneAvatar = (req, res) => {
 
 // Create New Avatar
 exports.createAvatar = async (req, res) => {
+  req.tailPath = "avatar/"
+  req.dateNow = Date.now()
 
   try {
     await uploadFile(req, res);
+    // Save Avatar to Database
+    Avatar.create({
+      name: req.body.name,
+      // file_url: "/resources/static/assets/uploads/" + req.tailPath + req.dateNow + req.file.originalname,
+      file_url: req.dateNow + req.file.originalname,
+      cost: req.body.cost
+    })
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+      });
   } catch (err) {
     console.log(err);
 
@@ -41,19 +56,44 @@ exports.createAvatar = async (req, res) => {
       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
     });
   }
+};
 
-  // Save Avatar to Database
-  Avatar.create({
-    name: req.body.name,
-    file_url: req.body.file_url,
-    cost: req.body.cost
+// Download Avatar
+exports.download = (req, res) => {
+  const fileName = req.params.path;
+  const directoryPath = __basedir + "/resources/static/assets/uploads/avatar/";
+
+  console.log(fileName)
+
+  res.download(directoryPath + fileName, fileName, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "Could not download the file. " + err,
+      });
+    }
+  });
+};
+
+// Download Avatar By Id
+exports.downloadById = (req, res) => {
+  const directoryPath = __basedir + "/resources/static/assets/uploads/avatar/";
+
+  Avatar.findOne({
+    where: {
+      id: req.params.id
+    }
   })
     .then(result => {
-      res.status(200).send(result);
+      const fileName = result.file_url;
+      res.download(directoryPath + fileName, fileName, (err) => {
+        if (err) {
+          res.status(500).send({
+            message: "Could not download the file. " + err,
+          });
+        }
+      });
+      // res.status(200).send(result)
     })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
 };
 
 // Update Avatar

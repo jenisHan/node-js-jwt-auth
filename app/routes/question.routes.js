@@ -16,6 +16,11 @@ module.exports = function (app) {
     );
 
     app.get(
+        "/api/question/findSomeQuestions",
+        controller.findSomeQuestions
+    );
+
+    app.get(
         "/api/question/findQuestionById/:id",
         controller.findQuestionById
     );
