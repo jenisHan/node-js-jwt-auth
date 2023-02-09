@@ -15,6 +15,7 @@ exports.getOneUser = (req, res) => {
 
 //Update Category
 exports.updateUser = (req, res) => {
+    console.log(req.body);
     User.update(
         {
             username: req.body.username,

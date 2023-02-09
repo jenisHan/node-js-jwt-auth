@@ -15,7 +15,7 @@ module.exports = function (app) {
         controller.findAll
     );
 
-    app.get(
+    app.post(
         "/api/dataPurchaseHistory/findDataPurchaseHistoyById/:id",
         controller.findDataPurchaseHistoyById
     );

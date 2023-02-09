@@ -44,7 +44,7 @@ db.dataPurchaseHistory = require("../models/dataPurchaseHistory.model")(sequeliz
 db.browseHistory = require("../models/browseHistroy.model")(sequelize, Sequelize);
 db.question = require("../models/question.model")(sequelize, Sequelize);
 db.answer = require("../models/answer.model")(sequelize, Sequelize);
-
+db.passedTest = require("../models/passedTest.model")(sequelize, Sequelize);
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -86,6 +86,19 @@ db.comment.belongsTo(db.article, {
   as: "article",
 });
 
+db.user.hasMany(db.passedTest, {as: "passedtests"});
+db.passedTest.belongsTo(db.user, {
+  foreignKey: "userId",
+  as: "user"
+})
+
+db.campusCategory.hasMany(db.passedTest, {as: "passedtests"});
+db.passedTest.belongsTo(db.campusCategory, {
+  foreignKey: "campusCategoryId",
+  as: "campusCategory"
+})
+
+
 db.dataCategory.hasMany(db.data, { as: "datas" });
 db.data.belongsTo(db.dataCategory, {
   foreignKey: "dataCategoryId",
@@ -119,6 +132,8 @@ db.browseHistory.belongsTo(db.campus, {
   foreignKey: "campusId",
   as: "campus",
 });
+
+// db.browseHistory.hasMany(db.user, { as: "users" });
 
 db.user.hasMany(db.suggestion, { as: "suggestions" });
 db.suggestion.belongsTo(db.user, {

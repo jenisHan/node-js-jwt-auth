@@ -50,7 +50,7 @@ require("./app/routes/browseHistory.routes")(app);
 require("./app/routes/profile.routes")(app);
 require("./app/routes/answer.routes")(app);
 require("./app/routes/question.routes")(app);
-
+require("./app/routes/passedTest.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

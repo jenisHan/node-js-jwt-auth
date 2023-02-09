@@ -1,3 +1,4 @@
+const { article } = require("../models");
 const db = require("../models");
 User = db.user
 BrowseHistory = db.browseHistory
@@ -13,7 +14,7 @@ exports.findAll = (req, res) => {
 
 // Get the browseHistories for a given user
 exports.findBrowseHistoryById = (req, res) => {
-  return User.findByPk(req.params.id, { include: ["browseHistories"] })
+  return User.findByPk(req.params.id, { include: ["browseHistories"]})
     .then((user) => {
       // res.json(user)
       res.status(200).send(user);
@@ -31,15 +32,27 @@ exports.findUserById = (req, res) => {
     });
 };
 
-
-//Get All BrowseHistories
 exports.getAllBrowseHistories = (req, res) => {
-  BrowseHistory.findAll({
+  BrowseHistory.findAll({ 
+    include: [
+      {
+        model: db.campus,
+        as: "campus",
+        attributes: ["name", "description","level"],
+        include:[
+          {
+            model: db.campusCategory,
+            as: "campusCategory",
+            attributes:["title"]
+          }
+        ]
+      }
+      ],
+    attributes: ["date", "count"]
   }).then(result => {
     res.status(200).send(result);
   });
 };
-
 //Get Category Onebyone
 exports.getOneBrowseHistory = (req, res) => {
   BrowseHistory.findOne({
