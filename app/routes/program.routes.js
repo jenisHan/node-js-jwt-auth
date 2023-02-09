@@ -10,6 +10,12 @@ module.exports = function (app) {
     });
 
     // frontend routes
+
+    app.get(
+        "/api/program/findAllBy",
+        controller.findAllBy
+    );
+
     app.get(
         "/api/program/findAll",
         controller.findAll
@@ -23,6 +29,11 @@ module.exports = function (app) {
     app.get(
         "/api/program/findProgramById/:id",
         controller.findProgramById
+    );
+
+    app.get(
+        "/api/program/getTopPrograms",
+        controller.getTopPrograms
     );
 
     // backend routes    

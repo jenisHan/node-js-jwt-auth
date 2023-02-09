@@ -1,12 +1,33 @@
 const db = require("../models");
 Question = db.question
 Answer = db.answer
+const Sequelize = require("sequelize");
+CampusCategory = db.campusCategory
 
+// // Get all questions include answers
+// exports.findAll = (req, res) => {
+//     return Question.findAll({
+//         include: ["answers"],
+//     }).then((result) => {
+//         res.json(result)
+//     });
+// };
 
-// Get all questions include answers
 exports.findAll = (req, res) => {
     return Question.findAll({
-        include: ["answers"],
+        include: ["answers", "campusCategory"],
+    }).then((question) => {
+        res.json(question)
+    });
+};
+
+// Get number of questions include answers
+exports.findSomeQuestions = (req, res) => {
+    return Question.findAll({
+        order: [
+            [Sequelize.literal('RAND()')]
+        ], limit: 2,
+        // include: ["answers"],
     }).then((result) => {
         res.json(result)
     });
@@ -32,7 +53,7 @@ exports.findAnswerById = (req, res) => {
         });
 };
 
-
+// ----------***---------
 // Get All Questions
 exports.getAllQuestions = (req, res) => {
     Question.findAll({
@@ -40,7 +61,7 @@ exports.getAllQuestions = (req, res) => {
         res.status(200).send(result);
     });
 };
-
+// ----------***---------
 
 //Get Question Onebyone
 exports.getOneQuestion = (req, res) => {
@@ -59,6 +80,7 @@ exports.createQuestion = (req, res) => {
     // Save Question to Database
     Question.create({
         description: req.body.description,
+        campusCategoryId: req.body.campusCategoryId
     })
         .then(result => {
             res.status(200).send(result);
@@ -73,6 +95,7 @@ exports.updateQuestion = (req, res) => {
     Question.update(
         {
             description: req.body.description,
+            campusCategoryId: req.body.campusCategoryId
         }, {
         where: {
             id: req.params.id

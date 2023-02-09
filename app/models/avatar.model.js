@@ -3,12 +3,12 @@ module.exports = (sequelize, Sequelize) => {
         name: {
             type: Sequelize.STRING
         },
+        cost: {
+            type: Sequelize.INTEGER
+        },
         file_url: {
             type: Sequelize.STRING
         },
-        cost: {
-            type: Sequelize.INTEGER
-        }   
     });
 
     return Avatar;

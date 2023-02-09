@@ -4,11 +4,20 @@ CampusCategory = db.campusCategory
 
 
 // Get all Categories include campuses
-exports.findAll = (req, res) => {
+exports.findAllBy = (req, res) => {
   return CampusCategory.findAll({
     include: ["campuses"],
   }).then((campusCategories) => {
     res.json(campusCategories)
+  });
+};
+
+// Get all campuses
+exports.findAll = (req, res) => {
+  return Campus.findAll({
+    include: ["campusCategory"],
+  }).then((campus) => {
+    res.json(campus)
   });
 };
 
@@ -94,7 +103,7 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-
+// ----------***---------
 //Get All Campuses
 exports.allCampus = (req, res) => {
   Campus.findAll({
@@ -105,6 +114,7 @@ exports.allCampus = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+// ----------***---------
 
 //Get Campus OneByone
 exports.oneCampus = (req, res) => {
@@ -125,7 +135,8 @@ exports.createCampus = (req, res) => {
     description: req.body.description,
     cost: req.body.cost,
     browses: req.body.browses,
-    recommends: req.body.recommends
+    recommends: req.body.recommends,
+    campusCategoryId: req.body.campusCategoryId
   })
     .then(result => {
       res.status(200).send(result);
@@ -143,7 +154,8 @@ exports.updateCampus = (req, res) => {
       description: req.body.description,
       cost: req.body.cost,
       browses: req.body.browses,
-      recommends: req.body.recommends
+      recommends: req.body.recommends,
+      campusCategoryId: req.body.campusCategoryId
     }, {
     where: {
       id: req.params.id

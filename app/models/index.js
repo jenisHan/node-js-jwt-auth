@@ -141,6 +141,12 @@ db.suggestion.belongsTo(db.user, {
   as: "user",
 });
 
+db.campusCategory.hasMany(db.question, { as: "questions" });
+db.question.belongsTo(db.campusCategory, {
+  foreignKey: "campusCategoryId",
+  as: "campusCategory",
+});
+
 db.question.hasMany(db.answer, { as: "answers" });
 db.answer.belongsTo(db.question, {
   foreignKey: "questionId",
