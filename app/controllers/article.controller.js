@@ -1,6 +1,7 @@
 const db = require("../models");
 Article = db.article
 ArticleCategory = db.articleCategory
+const Sequelize = require("sequelize");
 
 // Add Recommend
 exports.addRecommend = (req, res) => {
@@ -63,20 +64,40 @@ exports.addBrowingCount = (req, res) => {
 }
 
 // Find best adding user
-exports.findTopUser = (req, res) => {
-  //   return ArticleCategory.findAll({
-  //     include: ["articles"],
-  //   }).then((result) => {
-  //     // console.log("------------------------>",result)
-  //     res.json(result)
-  //   });
-  Article.sequelize.query(`SELECT * 
-                           FROM articles
-                           LEFT JOIN users ON users.id = articles.userId
-                          WHERE browingcount IN (SELECT MAX(browingcount) FROM articles)
-                          `).then((result) => { res.json(result) })
+// exports.findTopUser = (req, res) => {
+//   //   return ArticleCategory.findAll({
+//   //     include: ["articles"],
+//   //   }).then((result) => {
+//   //     // console.log("------------------------>",result)
+//   //     res.json(result)
+//   //   });
+//   Article.sequelize.query(`SELECT * 
+//                            FROM articles
+//                            LEFT JOIN users ON users.id = articles.userId
+//                           WHERE browingcount IN (SELECT MAX(browingcount) FROM articles)
+//                           `).then((result) => { res.json(result) })
 
-}
+// }
+
+// Get top programs
+exports.findTopUser = (req, res) => {
+  return Article.findAll({
+    group: ['userId'],
+    attributes: [
+      'userId',
+      [Sequelize.fn('sum', Sequelize.col('recommends')), 'total_amount'],
+    ],
+  }).then((article) => {
+    res.json(article)
+    // return Program.findAll({
+    //   limit: 3,
+    //   order: [['recommends', 'DESC']]
+    //   // include: ["programCategory"],
+    // }).then((program) => {
+    //   res.json(program)
+    // });
+  });
+};
 
 
 // Get all Categories include article

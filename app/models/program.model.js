@@ -24,6 +24,9 @@ module.exports = (sequelize, Sequelize) => {
         file_url: {
             type: Sequelize.STRING
         },
+        image_url: {
+            type: Sequelize.STRING
+        },
         cost: {
             type: Sequelize.INTEGER
         }
