@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
         },  
         recommends: {
             type: Sequelize.INTEGER
+        },  
+        level: {
+            type: Sequelize.INTEGER
         }
 
     });

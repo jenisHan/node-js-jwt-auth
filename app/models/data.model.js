@@ -80,6 +80,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         limit: {
             type: Sequelize.INTEGER
+        },
+        datacol: {
+            type: Sequelize.INTEGER
         }
     });
 

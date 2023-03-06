@@ -43,6 +43,7 @@ require('./app/routes/campus.routes')(app);
 require("./app/routes/suggestion.routes")(app);
 require("./app/routes/article.routes")(app);
 require("./app/routes/avatar.routes")(app);
+require("./app/routes/media.routes")(app);
 require("./app/routes/data.routes")(app);
 require("./app/routes/comment.routes")(app);
 require("./app/routes/dataPurchaseHIstory.routes")(app);
