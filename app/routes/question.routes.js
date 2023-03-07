@@ -8,51 +8,46 @@ module.exports = function (app) {
         );
         next();
     });
-    
+
     // frontend routes
     app.get(
-        "/api/question/findAll",
+        "/api/questions/find_all",
         controller.findAll
     );
 
     app.get(
-        "/api/question/findSomeQuestions",
-        controller.findSomeQuestions
-    );
-
-    app.get(
-        "/api/question/findQuestionById/:id",
+        "/api/questions/findQuestionById/:id",
         controller.findQuestionById
     );
 
     app.get(
-        "/api/question/findAnswerById/:id",
-        controller.findAnswerById
+        "/api/questions/findUserById/:id",
+        controller.findUserById
     );
 
     // backend routes
     app.get(
-        "/api/question/get_All",
+        "/api/questions/get_all",
         controller.getAllQuestions
     );
 
     app.get(
-        "/api/question/get_question/:id",
-        controller.getOneQuestion
+        "/api/questions/get_one/:id",
+        controller.getQuestion
     )
 
     app.post(
-        "/api/question/create",
+        "/api/questions/create",
         controller.createQuestion
     );
 
     app.put(
-        "/api/question/update/:id",
+        "/api/questions/update/:id",
         controller.updateQuestion
     );
 
     app.delete(
-        "/api/question/delete/:id",
+        "/api/questions/delete/:id",
         controller.deleteQuestion
     );
 }

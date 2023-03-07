@@ -1,70 +1,46 @@
 const db = require("../models");
-Question = db.question
-Answer = db.answer
-const Sequelize = require("sequelize");
-CampusCategory = db.campusCategory
+Question = db.question;
+User = db.user;
 
-// // Get all questions include answers
-// exports.findAll = (req, res) => {
-//     return Question.findAll({
-//         include: ["answers"],
-//     }).then((result) => {
-//         res.json(result)
-//     });
-// };
-
+// Get all users include questions
 exports.findAll = (req, res) => {
-    return Question.findAll({
-        include: ["answers", "campusCategory"],
-    }).then((question) => {
-        res.json(question)
+    return User.findAll({
+        include: ["questions"],
+    }).then((users) => {
+        res.json(users)
     });
 };
 
-// Get number of questions include answers
-exports.findSomeQuestions = (req, res) => {
-    return Question.findAll({
-        order: [
-            [Sequelize.literal('RAND()')]
-        ], limit: 2,
-        // include: ["answers"],
-    }).then((result) => {
-        res.json(result)
-    });
-};
-
-// Get the answers for a given question
+// Get the questions for a given user id
 exports.findQuestionById = (req, res) => {
-    return Question.findByPk(req.params.id, { include: ["answers"] })
-        .then((result) => {
-            // res.json(category)
-            res.status(200).send(result);
+    return User.findByPk(req.params.id, { include: ["questions"] })
+        .then((user) => {
+            res.status(200).send(user);
         });
 };
 
-// Get the answers for a given answer id
-exports.findAnswerById = (req, res) => {
-    return Answer.findByPk(req.params.id, { include: ["question"] })
-        .then((result) => {
-            res.json(result)
+// Get the user for a given question id
+exports.findUserById = (req, res) => {
+    return Question.findByPk(req.params.id, { include: ["user"] })
+        .then((question) => {
+            res.json(question)
         })
         .catch((err) => {
-            console.log(">> Error while finding answer: ", err);
+            console.log(">> Error while finding question: ", err);
         });
 };
 
-// ----------***---------
-// Get All Questions
+
+//Get All Questions
 exports.getAllQuestions = (req, res) => {
     Question.findAll({
     }).then(result => {
-        res.status(200).send(result);
+        res.status(200).send(result)
     });
 };
-// ----------***---------
 
-//Get Question Onebyone
-exports.getOneQuestion = (req, res) => {
+//Get Question
+exports.getQuestion = (req, res) => {
     Question.findOne({
         where: {
             id: req.params.id
@@ -76,14 +52,16 @@ exports.getOneQuestion = (req, res) => {
 }
 
 // Create New Question
-exports.createQuestion = (req, res) => {
+exports.createQuestion = async (req, res) => {
+
     // Save Question to Database
     Question.create({
-        description: req.body.description,
-        campusCategoryId: req.body.campusCategoryId
+        positon: req.body.positon,
+        degree: req.body.degree,
+        description: req.body.description
     })
-        .then(result => {
-            res.status(200).send(result);
+        .then(question => {
+            res.status(200).send(question);
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
@@ -94,8 +72,9 @@ exports.createQuestion = (req, res) => {
 exports.updateQuestion = (req, res) => {
     Question.update(
         {
-            description: req.body.description,
-            campusCategoryId: req.body.campusCategoryId
+            positon: req.body.positon,
+            degree: req.body.degree,
+            description: req.body.description
         }, {
         where: {
             id: req.params.id
