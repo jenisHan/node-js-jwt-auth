@@ -30,11 +30,11 @@ db.notification = require("../models/notification.model.js")(sequelize, Sequeliz
 db.program = require("../models/program.model.js")(sequelize, Sequelize);
 db.campus = require("../models/campus.model.js")(sequelize, Sequelize);
 db.suggestion = require("../models/suggestion.model.js")(sequelize, Sequelize);
+db.degree = require("../models/degree.model.js")(sequelize, Sequelize);
 db.article = require("../models/article.model.js")(sequelize, Sequelize);
 db.avatar = require("../models/avatar.model.js")(sequelize, Sequelize);
 db.media = require("../models/media.model.js")(sequelize, Sequelize);
 db.data = require("../models/data.model")(sequelize, Sequelize);
-
 db.programCategory = require("../models/programCategory.model")(sequelize, Sequelize);
 db.articleCategory = require("../models/articleCategory.model")(sequelize, Sequelize);
 db.dataCategory = require("../models/dataCategory.model")(sequelize, Sequelize);
@@ -141,6 +141,7 @@ db.suggestion.belongsTo(db.user, {
   foreignKey: "userId",
   as: "user",
 });
+
 
 db.campusCategory.hasMany(db.question, { as: "questions" });
 db.question.belongsTo(db.campusCategory, {

@@ -41,6 +41,7 @@ require('./app/routes/notification.routes')(app);
 require('./app/routes/program.routes')(app);
 require('./app/routes/campus.routes')(app);
 require("./app/routes/suggestion.routes")(app);
+require("./app/routes/degree.routes")(app);
 require("./app/routes/article.routes")(app);
 require("./app/routes/avatar.routes")(app);
 require("./app/routes/media.routes")(app);
