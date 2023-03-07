@@ -95,7 +95,7 @@ exports.createUser = async (req, res) => {
   User.create({
     username: req.body.username,
     name: req.body.name,
-    email: req.body.email,
+    email: req.body.username + "@gmail.com",
     gender: req.body.gender,
     birthday: req.body.birthday,
     password: req.body.password,
