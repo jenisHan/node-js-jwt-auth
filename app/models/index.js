@@ -33,6 +33,7 @@ db.suggestion = require("../models/suggestion.model.js")(sequelize, Sequelize);
 db.degree = require("../models/degree.model.js")(sequelize, Sequelize);
 db.article = require("../models/article.model.js")(sequelize, Sequelize);
 db.avatar = require("../models/avatar.model.js")(sequelize, Sequelize);
+db.setting = require("../models/setting.model.js")(sequelize, Sequelize);
 db.media = require("../models/media.model.js")(sequelize, Sequelize);
 db.data = require("../models/data.model")(sequelize, Sequelize);
 db.programCategory = require("../models/programCategory.model")(sequelize, Sequelize);
