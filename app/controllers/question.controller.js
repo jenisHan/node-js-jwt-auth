@@ -1,13 +1,14 @@
 const db = require("../models");
 Question = db.question;
 User = db.user;
+degree = db.degree
 
 // Get all users include questions
 exports.findAll = (req, res) => {
-    return User.findAll({
-        include: ["questions"],
-    }).then((users) => {
-        res.json(users)
+    return Question.findAll({
+        include: ["degree"],
+    }).then((questions) => {
+        res.json(questions)
     });
 };
 
