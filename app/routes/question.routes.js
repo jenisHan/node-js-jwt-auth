@@ -41,10 +41,10 @@ module.exports = function (app) {
         controller.createQuestion
     );
 
-    // app.put(
-    //     "/api/questions/update/:id",
-    //     controller.updateQuestion
-    // );
+    app.put(
+        "/api/questions/update/:id",
+        controller.updateQuestion
+    );
 
     app.delete(
         "/api/questions/delete/:id",
