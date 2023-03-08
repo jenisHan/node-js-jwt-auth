@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // database
 const db = require("./app/models");
-const { setting } = require("./app/models");
+const Setting = db.setting
 const Role = db.role;
 
 db.sequelize.sync();
@@ -79,7 +79,7 @@ function initial() {
   });
 
   // Settings
-  setting.create({
+  Setting.create({
     title: 'homeImages',
     value: "[]"
   });
