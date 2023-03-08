@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
       parentId:{
         type: DataTypes.INTEGER
       },
-      treeValue:{
-        type: DataTypes.STRING
-      },
+      // treeValue:{
+      //   type: DataTypes.STRING
+      // },
     });
   
     return CampusCategory;
