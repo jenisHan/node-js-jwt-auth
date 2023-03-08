@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Question = sequelize.define("questions", {
-      position: {
+      degreeId: {
         type: DataTypes.STRING
-      }, 
-      degree: {
+      },
+      level: {
         type: DataTypes.STRING
       },
       description: {

@@ -56,9 +56,9 @@ exports.createQuestion = async (req, res) => {
 
     // Save Question to Database
     Question.create({
-        positon: req.body.positon,
-        degree: req.body.degree,
-        description: req.body.description
+        level: req.body.level,
+        description: req.body.description,
+        degreeId: req.body.degreeId
     })
         .then(question => {
             res.status(200).send(question);
@@ -69,20 +69,20 @@ exports.createQuestion = async (req, res) => {
 };
 
 // Update Question
-exports.updateQuestion = (req, res) => {
-    Question.update(
-        {
-            positon: req.body.positon,
-            degree: req.body.degree,
-            description: req.body.description
-        }, {
-        where: {
-            id: req.params.id
-        },
-    }).then(result => {
-        res.status(200).send(result);
-    });
-};
+// exports.updateQuestion = (req, res) => {
+//     Question.update(
+//         {
+//             positon: req.body.positon,
+//             degree: req.body.degree,
+//             description: req.body.description
+//         }, {
+//         where: {
+//             id: req.params.id
+//         },
+//     }).then(result => {
+//         res.status(200).send(result);
+//     });
+// };
 
 // Delete Question
 exports.deleteQuestion = async (req, res) => {
