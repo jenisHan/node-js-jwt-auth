@@ -41,6 +41,17 @@ exports.findCampusById = (req, res) => {
     });
 };
 
+// Get top Campuses
+exports.getTopCampuses = (req, res) => {
+  return Campus.findAll({
+    limit: 3,
+    order: [['recommends', 'DESC']]
+    // include: ["campusCategory"],
+  }).then((campus) => {
+    res.json(campus)
+  });
+};
+
 //Get All Categories
 exports.getAllCategories = (req, res) => {
   CampusCategory.findAll({

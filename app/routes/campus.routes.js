@@ -30,6 +30,11 @@ module.exports = function (app) {
     controller.findCampusById
   );
 
+  app.get(
+    "/api/campus/getTopCampuses",
+    controller.getTopCampuses
+  );
+
   // backend routes
   app.get(
     "/api/campus/category/get_All",
