@@ -28,6 +28,10 @@ exports.createAvatar = async (req, res) => {
   req.tailPath = "avatar/"
   req.dateNow = Date.now()
 
+  if(req.body==null){
+    res.status(200).send(result);
+  }
+
   try {
     await uploadFile(req, res);
     // Save Avatar to Database
