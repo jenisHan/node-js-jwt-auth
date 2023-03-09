@@ -1,4 +1,6 @@
 const db = require("../models");
+const uploadFile = require("../middleware/upload");
+
 Program = db.program
 ProgramCategory = db.programCategory
 
@@ -114,10 +116,8 @@ exports.deleteCategory = async (req, res) => {
 };
 
 
-
-
-//Get All Programs
-exports.allPrograms = (req, res) => {
+// Get All Programs
+exports.allProgram = (req, res) => {
   Program.findAll({
   }).then(result => {
     res.status(200).send(result);
@@ -136,29 +136,86 @@ exports.oneProgram = (req, res) => {
     })
 }
 
-//Create New Program
-exports.createProgram = (req, res) => {
-  //save new program to database
-  Program.create({
-    name: req.body.name,
-    description: req.body.description,
-    requirement: req.body.requirement,
-    programCategoryId: req.body.programCategoryId,
-    date: req.body.date,
-    purchases: req.body.purchases,
-    recommends: req.body.recommends,
-    file_url: req.body.file_url,
-    cost: req.body.cost
-  })
-    .then(result => {
-      res.status(200).send(result);
+// Create New Program
+exports.createProgram =async (req, res) => {
+  req.tailPath = "program/"
+  req.dateNow = Date.now()
+
+  try {
+    await uploadFile(req, res);
+    // Save Program to Database
+    Program.create({
+      name: req.body.name,
+      description: req.body.description,
+      requirement: req.body.requirement,
+      programCategoryId: req.body.programCategoryId,
+      date: req.body.date,
+      purchases: req.body.purchases,
+      recommends: req.body.recommends,
+      file_url: req.dateNow + req.file.originalname,
+      image_url:req.body.image_url,
+      cost: req.body.cost
     })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(err => {
+        res.status(500).send({ message: err.message });
+      });
+  } catch (err) {
+    console.log(err);
+
+    if (err.code == "LIMIT_FILE_SIZE") {
+      return res.status(500).send({
+        message: "File size cannot be larger than 2MB!",
+      });
+    }
+
+    res.status(500).send({
+      message: `Could not upload the file: ${req.file.originalname}. ${err}`,
     });
+  }
 };
 
-//Update Program
+// Download Program
+exports.download = (req, res) => {
+  const fileName = req.params.path;
+  const directoryPath = __basedir + "/resources/static/assets/uploads/program/";
+
+  console.log(fileName)
+
+  res.download(directoryPath + fileName, fileName, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "Could not download the file. " + err,
+      });
+    }
+  });
+};
+
+// Download Program By Id
+exports.downloadById = (req, res) => {
+  const directoryPath = __basedir + "/resources/static/assets/uploads/program/";
+
+  Program.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(result => {
+      const fileName = result.file_url;
+      res.download(directoryPath + fileName, fileName, (err) => {
+        if (err) {
+          res.status(500).send({
+            message: "Could not download the file. " + err,
+          });
+        }
+      });
+      // res.status(200).send(result)
+    })
+};
+
+// Update Program
 exports.updateProgram = (req, res) => {
   Program.update(
     {
@@ -170,6 +227,7 @@ exports.updateProgram = (req, res) => {
       purchases: req.body.purchases,
       recommends: req.body.recommends,
       file_url: req.body.file_url,
+      image_url:req.body.image_url,
       cost: req.body.cost
     }, {
     where: {
@@ -180,7 +238,8 @@ exports.updateProgram = (req, res) => {
   });
 };
 
-//Delete Program
+
+// Delete Program
 exports.deleteProgram = async (req, res) => {
   try {
     const postDelete = await Program.destroy({ where: { id: req.params.id } });
@@ -189,3 +248,4 @@ exports.deleteProgram = async (req, res) => {
     console.log(error)
   }
 };
+

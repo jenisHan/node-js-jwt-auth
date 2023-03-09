@@ -69,8 +69,8 @@ exports.getOneBrowseHistory = (req, res) => {
 exports.createBrowseHistory = (req, res) => {
   //save new category to database
   BrowseHistory.create({
-    date: req.body.date,
-    count: req.body.count,
+    userId: req.body.userId,
+    campusId: req.body.campusId
   })
     .then(result => {
       res.status(200).send(result);

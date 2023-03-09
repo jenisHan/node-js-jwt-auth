@@ -1,12 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
     const BrowseHistory = sequelize.define("browseHistories", {
-        date: {
-            type: Sequelize.DATEONLY
+        userId: {
+            type: Sequelize.INTEGER
         },
-        count: {
+        campusId: {
             type: Sequelize.INTEGER
         }
-
     });
 
     return BrowseHistory;

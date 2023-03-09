@@ -14,9 +14,9 @@ exports.findAll = (req, res) => {
 
 // Get the questions for a given user id
 exports.findQuestionById = (req, res) => {
-    return User.findByPk(req.params.id, { include: ["questions"] })
-        .then((user) => {
-            res.status(200).send(user);
+    return Question.findByPk(req.params.id, { include: ["degree"] })
+        .then((question) => {
+            res.status(200).send(question);
         });
 };
 
