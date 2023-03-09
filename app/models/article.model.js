@@ -4,10 +4,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         description: {
-            type: Sequelize.STRING
+            type: Sequelize.TEXT
         },
         contact_number: {
             type: Sequelize.STRING
+        },
+        articleCategoryId: {
+            type: Sequelize.INTEGER
         },
         attach_url: {
             type: Sequelize.STRING
@@ -23,8 +26,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         browingcount:{
             type: Sequelize.INTEGER
-        }
-       
+        }     
     });
 
     return Article;

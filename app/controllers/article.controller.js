@@ -223,7 +223,10 @@ exports.createArticle = (req, res) => {
     description: req.body.description,
     contact_number: req.body.contact_number,
     attach_url: req.body.attach_url,
-    source: req.body.source
+    source: req.body.source,
+    recommends: req.body.recommends,
+    oppositions: req.body.oppositions,
+    browingcount: req.body.browingcount
     // category: req.body.category
   })
     .then(result => {
@@ -243,6 +246,9 @@ exports.updateArticle = (req, res) => {
       contact_number: req.body.contact_number,
       attach_url: req.body.attach_url,
       source: req.body.source,
+      recommends: req.body.recommends,
+      oppositions: req.body.oppositions,
+      browingcount: req.body.browingcount
       // category: req.body.category
     }, {
     where: {
