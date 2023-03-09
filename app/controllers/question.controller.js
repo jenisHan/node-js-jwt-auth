@@ -1,7 +1,6 @@
 const db = require("../models");
 Question = db.question;
-User = db.user;
-degree = db.degree
+degree = db.degree;
 
 // Get all users include questions
 exports.findAll = (req, res) => {
@@ -23,17 +22,6 @@ exports.findAnswerById = (req, res) => {
     return Question.findByPk(req.params.id, { include: ["degree"] })
         .then((question) => {
             res.status(200).send(question);
-        });
-};
-
-// Get the user for a given question id
-exports.findUserById = (req, res) => {
-    return Question.findByPk(req.params.id, { include: ["user"] })
-        .then((question) => {
-            res.json(question)
-        })
-        .catch((err) => {
-            console.log(">> Error while finding question: ", err);
         });
 };
 

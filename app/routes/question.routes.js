@@ -20,11 +20,6 @@ module.exports = function (app) {
         controller.findQuestionById
     );
 
-    app.get(
-        "/api/questions/findUserById/:id",
-        controller.findUserById
-    );
-
     // backend routes
     app.get(
         "/api/questions/get_all",
