@@ -19,6 +19,12 @@ exports.findQuestionById = (req, res) => {
             res.status(200).send(question);
         });
 };
+exports.findAnswerById = (req, res) => {
+    return Question.findByPk(req.params.id, { include: ["degree"] })
+        .then((question) => {
+            res.status(200).send(question);
+        });
+};
 
 // Get the user for a given question id
 exports.findUserById = (req, res) => {
