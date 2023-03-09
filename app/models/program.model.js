@@ -9,9 +9,6 @@ module.exports = (sequelize, Sequelize) => {
         requirement: {
             type: Sequelize.STRING
         },
-        // category: {
-        //     type: Sequelize.STRING
-        // },
         date: {
             type: Sequelize.DATEONLY
         },
@@ -20,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         recommends: {
             type: Sequelize.INTEGER
-        },
+        },      
         file_url: {
             type: Sequelize.STRING
         },
@@ -29,8 +26,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         cost: {
             type: Sequelize.INTEGER
-        }
-        
+        },
     });
 
     return Program;
