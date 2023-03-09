@@ -65,7 +65,7 @@ module.exports = function (app) {
 
     app.get(
         "/api/program/get_All",
-        controller.allPrograms
+        controller.allProgram
     );
 
     app.get(
@@ -75,7 +75,18 @@ module.exports = function (app) {
 
     app.post(
         "/api/program/create",
-        controller.createProgram
+        controller.createProgram                             
+    );
+
+    
+    app.get(
+        "/api/program/file/:path",
+        controller.download
+    );
+
+    app.get(
+        "/api/program/fileById/:id",
+        controller.downloadById
     );
 
     app.put(
