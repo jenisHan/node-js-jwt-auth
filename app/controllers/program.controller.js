@@ -22,6 +22,7 @@ exports.findAll = (req, res) => {
   });
 };
 
+
 // Get the programs for a given category id
 exports.findProgramCategoryById = (req, res) => {
   return ProgramCategory.findByPk(req.params.id, { include: ["programs"] })
@@ -46,7 +47,7 @@ exports.findProgramById = (req, res) => {
 exports.getTopPrograms = (req, res) => {
   return Program.findAll({
     limit: 3,
-    order: [['recommends', 'DESC']]
+    order: [['purchases', 'DESC']]
     // include: ["programCategory"],
   }).then((program) => {
     res.json(program)
@@ -217,7 +218,9 @@ exports.downloadById = (req, res) => {
 
 // Update Program
 exports.updateProgram = (req, res) => {
-  Program.update(
+  req.tailPath = "program/"
+  req.dateNow = Date.now()
+  Program.update( 
     {
       name: req.body.name,
       description: req.body.description,
@@ -226,7 +229,7 @@ exports.updateProgram = (req, res) => {
       date: req.body.date,
       purchases: req.body.purchases,
       recommends: req.body.recommends,
-      file_url: req.body.file_url,
+      file_url: req.dateNow + req.file.originalname,
       image_url:req.body.image_url,
       cost: req.body.cost
     }, {
