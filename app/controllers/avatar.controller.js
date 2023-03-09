@@ -28,7 +28,7 @@ exports.createAvatar = async (req, res) => {
   req.tailPath = "avatar/"
   req.dateNow = Date.now()
 
-  if(req.body==null){
+  if(req.file==null){
     res.status(200).send(result);
   }
 
