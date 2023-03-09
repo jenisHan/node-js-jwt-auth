@@ -1,5 +1,14 @@
 const db = require("../models");
 Answer = db.answer
+Question = db.question;
+
+// Get All Answers
+exports.findAnswersByQuestionId = (req, res) => {
+    return Question.findByPk(req.params.id, { include: ["answers"] })
+        .then((question) => {
+            res.status(200).send(question);
+        });
+};
 
 // Get All Answers
 exports.getAllAnswers = (req, res) => {
@@ -27,7 +36,8 @@ exports.createAnswer = (req, res) => {
     // Save Answer to Database
     Answer.create({
         description: req.body.description,
-        result: req.body.result
+        result: req.body.result,
+        questionId: req.body.questionId
     })
         .then(result => {
             res.status(200).send(result);
