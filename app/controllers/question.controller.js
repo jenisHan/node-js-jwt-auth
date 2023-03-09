@@ -1,21 +1,22 @@
 const db = require("../models");
 Question = db.question;
 User = db.user;
+degree = db.degree
 
 // Get all users include questions
 exports.findAll = (req, res) => {
-    return User.findAll({
-        include: ["questions"],
-    }).then((users) => {
-        res.json(users)
+    return Question.findAll({
+        include: ["degree"],
+    }).then((questions) => {
+        res.json(questions)
     });
 };
 
 // Get the questions for a given user id
 exports.findQuestionById = (req, res) => {
-    return User.findByPk(req.params.id, { include: ["questions"] })
-        .then((user) => {
-            res.status(200).send(user);
+    return Question.findByPk(req.params.id, { include: ["degree"] })
+        .then((question) => {
+            res.status(200).send(question);
         });
 };
 
@@ -69,20 +70,20 @@ exports.createQuestion = async (req, res) => {
 };
 
 // Update Question
-// exports.updateQuestion = (req, res) => {
-//     Question.update(
-//         {
-//             positon: req.body.positon,
-//             degree: req.body.degree,
-//             description: req.body.description
-//         }, {
-//         where: {
-//             id: req.params.id
-//         },
-//     }).then(result => {
-//         res.status(200).send(result);
-//     });
-// };
+exports.updateQuestion = (req, res) => {
+    Question.update(
+        {
+            level: req.body.level,
+            description: req.body.description,
+            degreeId: req.body.degreeId
+        }, {
+        where: {
+            id: req.params.id
+        },
+    }).then(result => {
+        res.status(200).send(result);
+    });
+};
 
 // Delete Question
 exports.deleteQuestion = async (req, res) => {

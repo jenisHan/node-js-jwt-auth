@@ -10,6 +10,11 @@ module.exports = function (app) {
     });
 
     app.get(
+        "/api/answer/findAnswersByQuestionId/:id",
+        controller.findAnswersByQuestionId
+    );
+
+    app.get(
         "/api/answer/get_All",
         controller.getAllAnswers
     );
