@@ -1,4 +1,5 @@
 const db = require("../models");
+const Sequelize = require("sequelize");
 Question = db.question;
 degree = db.degree;
 
@@ -33,6 +34,23 @@ exports.getAllQuestions = (req, res) => {
         res.status(200).send(result)
     });
 };
+
+// Get number of questions include answers
+exports.findSomeQuestions = (req, res) => {
+    return Question.findAll({
+        // where: {
+        //     degreeId: 2,
+        //     level: 3
+        // },
+        order: [
+            [Sequelize.literal('RAND()')]
+        ], limit: 4,
+        include: ["answers"],
+    }).then((result) => {
+        res.json(result)
+    });
+};
+
 
 //Get Question
 exports.getQuestion = (req, res) => {

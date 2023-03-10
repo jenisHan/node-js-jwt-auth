@@ -9,6 +9,11 @@ module.exports = function (app) {
         next();
     });
 
+    app.get(
+        "/api/questions/findSomeQuestions",
+        controller.findSomeQuestions
+    );
+
     // frontend routes
     app.get(
         "/api/questions/find_all",
