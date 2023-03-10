@@ -86,4 +86,15 @@ module.exports = function (app) {
     "/api/campus/delete/:id",
     controller.deleteCampus
   )
+
+  app.post(
+    "/api/campus/upvote",
+    controller.upVote
+  );
+  
+  app.post(
+    "/api/campus/downvote",
+    controller.downVote
+  );
 };
+

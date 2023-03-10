@@ -186,3 +186,29 @@ exports.deleteCampus = async (req, res) => {
     console.log(error)
   }
 };
+
+//upVote
+exports.upVote = (req, res) => {
+  Campus.create({
+    recommends: req.body.recommends,
+  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+//downVote
+exports.downVote = (req, res) => {
+  Campus.create({
+    unrecommends: req.body.unrecommends,
+  })
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
