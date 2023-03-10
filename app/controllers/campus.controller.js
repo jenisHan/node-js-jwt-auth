@@ -189,26 +189,28 @@ exports.deleteCampus = async (req, res) => {
 
 //upVote
 exports.upVote = (req, res) => {
-  Campus.create({
-    recommends: req.body.recommends,
-  })
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+  Campus.update(
+    {
+      recommends: req.body.recommends,
+    }, {
+    where: {
+      id: req.params.id
+    },
+  }).then(result => {
+    res.status(200).send(result);
+  });
 };
 
 //downVote
 exports.downVote = (req, res) => {
-  Campus.create({
-    unrecommends: req.body.unrecommends,
-  })
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+  Campus.update(
+    {
+      unrecommends: req.body.unrecommends,
+    }, {
+    where: {
+      id: req.params.id
+    },
+  }).then(result => {
+    res.status(200).send(result);
+  });
 };

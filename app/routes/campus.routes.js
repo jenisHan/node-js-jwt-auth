@@ -87,13 +87,13 @@ module.exports = function (app) {
     controller.deleteCampus
   )
 
-  app.post(
-    "/api/campus/upvote",
+  app.put(
+    "/api/campus/upvote/:id",
     controller.upVote
   );
   
-  app.post(
-    "/api/campus/downvote",
+  app.put(
+    "/api/campus/downvote/:id",
     controller.downVote
   );
 };
